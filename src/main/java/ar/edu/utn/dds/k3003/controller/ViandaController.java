@@ -22,14 +22,14 @@ public class ViandaController {
   }
 
   public void findByColaboradorIdAndAnioAndMes(Context context) {
-    var id = context.pathParamAsClass("id", Long.class)
+    var colaboradorId = context.queryParamAsClass("colaboradorId", Long.class)
         .get();
-    var anio = context.pathParamAsClass("anio", Integer.class)
+    var anio = context.queryParamAsClass("anio", Integer.class)
         .get();
-    var mes = context.pathParamAsClass("mes", Integer.class)
+    var mes = context.queryParamAsClass("mes", Integer.class)
         .get();
     try {
-      var viandaDTOS = this.fachada.viandasDeColaborador(id, mes, anio);
+      var viandaDTOS = this.fachada.viandasDeColaborador(colaboradorId, mes, anio);
       context.json(viandaDTOS);
     } catch (NoSuchElementException ex) {
       context.result(ex.getLocalizedMessage());
@@ -64,11 +64,11 @@ public class ViandaController {
   }
 
   public void modificarHeladera(Context context) {
-    var qr = context.pathParamAsClass("qr", String.class)
+    var qr = context.pathParamAsClass("qrVianda", String.class)
         .get();
-    var idHeladera = context.bodyAsClass(Integer.class);
+    var heladeraId = context.queryParamAsClass("heladeraId",Integer.class).get();
 
-    var viandaDTO = this.fachada.modificarHeladera(qr, idHeladera);
+    var viandaDTO = this.fachada.modificarHeladera(qr, heladeraId);
     context.json(viandaDTO);
 
   }
